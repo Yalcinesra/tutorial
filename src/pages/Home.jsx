@@ -9,7 +9,7 @@ const Home = () => {
 
   const BASE_URL = "https://tutorial-api.fullstack.clarusway.com/tutorials/";
 
-  //! GET işlemi
+  
 
   const getTutorialS = async () => {
     const veri = await axios.get(BASE_URL);
@@ -17,29 +17,22 @@ const Home = () => {
     // console.log(veri.data);
     setTutorial(veri.data);
   };
+  
 
-  //!then zinciriyle de yazabilirsiniz
-  // useEffect(()=>{
-  // axios.get(url).then((res) => setBilgiler(res.data))},[])
-
-  // console.log(bilgiler);
   useEffect(() => {
     getTutorialS();
   }, []);
 
   console.log(tutorial);
-
-  //!POST İşlemi
+  
   const postBilgi = async (veri) => {
     await axios.post(BASE_URL, veri);
 
     getTutorialS();
   };
 
-// const deleteBilgi=async(id)=>{
-// await axios.delete(BASE_URL/id)
 
-// }
+
 
 
 

@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
 import axios from "axios";
+import EditBilgi from "./EditBilgi";
 const BilgiList = ({ tutorial, getTutorialS }) => {
+  const [bilgiEdit, setBilgiEdit] = useState({
+    id: "",
+    title: "",
+    description: "",
+  });
   // console.log(tutorial);
   const BASE_URL = "https://tutorial-api.fullstack.clarusway.com/tutorials/";
+  console.log(bilgiEdit);
 
-  //!backend kodunu yazan developer ların hangi endpointleri seçtiği önemli, burada id nin sonuna / getirmişler, ama sondaki / ı eksik yazarsanız hata almazsanız, çünkü otomatik tamamlanır
   const deleteBilgi = async (id) => {
     await axios.delete(`${BASE_URL}${id}/`);
 
@@ -29,7 +35,7 @@ const BilgiList = ({ tutorial, getTutorialS }) => {
         <tbody>
           {tutorial.map(({ id, title, description }) => {
             return (
-              <tr>
+              <tr key={id}>
                 <th>{id}</th>
                 <td>{title} </td>
                 <td>{description} </td>
@@ -47,6 +53,7 @@ const BilgiList = ({ tutorial, getTutorialS }) => {
                     size={20}
                     type="button"
                     className="me-2 text-warning cursor-pointer"
+                    onClick={() => setBilgiEdit({ id, title, description })}
                   />
                 </td>
               </tr>
@@ -54,6 +61,7 @@ const BilgiList = ({ tutorial, getTutorialS }) => {
           })}
         </tbody>
       </table>
+      <EditBilgi bilgiEdit={bilgiEdit} getTutorialS={getTutorialS} />
     </div>
   );
 };
